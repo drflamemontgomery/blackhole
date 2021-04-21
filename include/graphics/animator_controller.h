@@ -22,13 +22,13 @@ class AnimatorController : public ImageBase {
   float y;
   
   animation_holder* animations;
-  Animation currentAnimation;
+  Animation* currentAnimation;
  public:
   AnimatorController(animation_holder* animations);
   ~AnimatorController();
 
   void setAnimation(const char* animation);
-  Animation getAnimation();
+  Animation* getAnimation();
   const char* getAnimationName();
   
   void setX(float x);

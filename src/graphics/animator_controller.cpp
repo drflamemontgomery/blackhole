@@ -2,9 +2,9 @@
 
 namespace blackhole::graphics {
 
-  AnimatorController::AnimatorController(animation_holder* animations) {
+  AnimatorController::AnimatorController(animation_holder* animations){
 	this->animations = animations;
-	this->currentAnimation = animations[0].animation;
+	this->currentAnimation = &animations[0].animation;
   }
 
   AnimatorController::~AnimatorController() {
@@ -13,18 +13,18 @@ namespace blackhole::graphics {
   void AnimatorController::setAnimation(const char* animation) {
 	for(int i = 0; i < len(animations); i++) {
 	  if(animations[i].name == animation) {
-		currentAnimation = animations[i].animation;
+		currentAnimation = &animations[i].animation;
 	  }
 	}
   }
 
-  Animation AnimatorController::getAnimation() {
+  Animation* AnimatorController::getAnimation() {
 	return currentAnimation;
   }
 
   const char* AnimatorController::getAnimationName() {
 	for(int i = 0; i < len(animations); i++) {
-	  if(animations[i].animation == currentAnimation) {
+	  if(&animations[i].animation == currentAnimation) {
 	    return animations[i].name;
 	  }
 	}
@@ -47,25 +47,25 @@ namespace blackhole::graphics {
   }
 
   void AnimatorController::addTime(float time) {
-	currentAnimation.addTime(time);
+	currentAnimation->addTime(time);
   }
 
   SDL_Texture* AnimatorController::getTexture() {
-	return currentAnimation.getTexture();
+	return currentAnimation->getTexture();
   }
 
   SDL_RendererFlip AnimatorController::getRendererFlip() {
-	return currentAnimation.getRendererFlip();
+	return currentAnimation->getRendererFlip();
   }
 
-  SDL_Rect* getDestRect() {
+  SDL_Rect* AnimatorController::getDestRect() {
 	destRect.x = round(this->x);
 	destRect.y = round(this->y);
 	return &destRect;
   }
 
-  SDL_Rect* getSrcRect() {
-	return currentAnimation.getSrcRect();
+  SDL_Rect* AnimatorController::getSrcRect() {
+	return currentAnimation->getSrcRect();
   }
   
 }
