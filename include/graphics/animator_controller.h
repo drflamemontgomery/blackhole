@@ -20,11 +20,13 @@ class AnimatorController : public ImageBase {
 
   float x;
   float y;
-  
+
+  int array_length;
   animation_holder* animations;
   Animation* currentAnimation;
+  const char* currentAnimationName;
  public:
-  AnimatorController(animation_holder* animations);
+  AnimatorController(animation_holder* animations, long int array_length);
   ~AnimatorController();
 
   void setAnimation(const char* animation);
@@ -39,7 +41,6 @@ class AnimatorController : public ImageBase {
   void addTime(float time);
   
   SDL_Texture* getTexture();
-  SDL_RendererFlip getRendererFlip();
   SDL_Rect* getDestRect();
   SDL_Rect* getSrcRect();
 };  

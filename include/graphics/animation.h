@@ -17,7 +17,7 @@ class Animation : public ImageBase {
   float speed;
   float time = 0;
  public:
-  Animation(SpriteSheet* images, int frame, int* frames, float speed = 1);
+  Animation(SpriteSheet* images, int frame, int* frames, int num_frames, float speed = 1);
   ~Animation();
 
 
@@ -29,13 +29,13 @@ class Animation : public ImageBase {
   bool setFrame(int frame);
   int getFrame();
 
+  void resetAnimation();
   void addTime(float time);
   
   SpriteSheet* getSpriteSheet();
   SDL_Texture* getTexture();
 
   
-  SDL_RendererFlip getRendererFlip();
   SDL_Rect* getDestRect();
   SDL_Rect* getSrcRect();
   

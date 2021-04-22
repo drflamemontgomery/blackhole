@@ -2,12 +2,13 @@
 
 namespace blackhole::graphics {
 
-  Animation::Animation(SpriteSheet* images, int frame, int* frames, float speed)
+  Animation::Animation(SpriteSheet* images, int frame, int* frames, int num_frames, float speed)
   {
 	this->images = images;
 	images->setFrame(frame);
 	this->frames = frames;
-	this->num_frames = len(frames);
+	this->num_frames = num_frames;
+	printf("%d\n", num_frames);
 	this->speed = speed;
   }
 
@@ -39,6 +40,10 @@ namespace blackhole::graphics {
 	return images->getFrame();
   }
 
+  void Animation::resetAnimation() {
+	this->time = 0;
+  }
+  
   void Animation::addTime(float time) {
 	this->time += time;
     images->setFrame(frames[(int)(this->time / speed) % num_frames]);
@@ -50,10 +55,6 @@ namespace blackhole::graphics {
 
   SDL_Texture* Animation::getTexture() {
 	return images->getTexture();
-  }
-
-  SDL_RendererFlip Animation::getRendererFlip() {
-	return images->getRendererFlip();
   }
   
   SDL_Rect* Animation::getSrcRect() {
