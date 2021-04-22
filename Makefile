@@ -1,5 +1,5 @@
 CC=g++
-SRCS=src/graphics/*.cpp src/sound/*.cpp
+SRCS=src/*.cpp src/graphics/*.cpp src/sound/*.cpp
 HEADERS=include/graphics/*.h include/sound/*.h
 HEADERDIR=include
 OBJDIR=obj
