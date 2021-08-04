@@ -22,7 +22,7 @@ class SpriteSheet : public ImageBase {
   SDL_Rect srcRect;
   
  public:
-  SpriteSheet(const char* file, SDL_Renderer* renderer, float x = 0, float y = 0, int rows = 1, int cols = 1);
+  SpriteSheet(const char* file, SDL_Renderer* renderer, float x = 0, float y = 0, int cols = 1, int rows = 1);
   ~SpriteSheet();
 
   bool setFrame(int frame);
