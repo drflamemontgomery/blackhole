@@ -3,7 +3,7 @@
 namespace blackhole::graphics {
   SpriteSheet::SpriteSheet(const char* file, SDL_Renderer* renderer,
 						   float x,float y,
-						   int rows, int cols
+						   int cols, int rows
 						   ) {
 	init(file, renderer);
 	this->x = x;
