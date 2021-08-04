@@ -6,7 +6,7 @@ OBJDIR=obj
 LIBDIR=lib
 OUTLIB=libblackhole.so
 INCLUDEDIR=/usr/local/include/blackhole
-CFLAGS=-lSDL2main -lSDL2 -lSDL_mixer -I$(HEADERDIR)
+CFLAGS=-lpthread -lSDL2main -lSDL2 -lSDL_mixer -I$(HEADERDIR)
 
 exec : $(OBJDIR) $(LIBDIR) $(INCLUDEDIR)
 	$(CC) -c -Wall -fpic $(SRCS) $(CFLAGS)
