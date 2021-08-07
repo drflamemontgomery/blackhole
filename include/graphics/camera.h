@@ -13,6 +13,7 @@ class Camera : public ImageBase {
  private:
   float x;
   float y;
+  SDL_Rect viewport;
   std::list<ImageHolder> renderQueue;
 
   SDL_Renderer* renderer;
@@ -28,6 +29,8 @@ class Camera : public ImageBase {
   void addImage(ImageBase* image);
   void removeImage(ImageBase* tex);
 
+  SDL_Rect* getViewport();
+  SDL_Texture* getCamTexture();
   SDL_Texture* getTexture();
 };
 }}
