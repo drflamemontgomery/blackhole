@@ -15,6 +15,7 @@
 #include <memory>
 #include "color.h"
 #include "imageHolder.h"
+#include "cameraHolder.h"
 
 namespace blackhole {
 namespace graphics {
@@ -30,13 +31,18 @@ class Window {
  private:
   SDL_Window* window;
   SDL_Renderer* renderer;
+  SDL_Texture* preRenderer;
+
+  SDL_Rect renderFrame;
+  
   Color bg_color;
   int width;
   int height;
   const char* title;
 
   floatXY scale;
-  
+
+  std::list<CameraHolder> cameraQueue;
   std::list<ImageHolder> renderQueue;
   const Uint8* keyboard_state = SDL_GetKeyboardState(NULL);
   double deltaTime = 0;
@@ -48,12 +54,14 @@ class Window {
   void (*_main)();
   
  public:
-  Window(int width, int height, const char* title);
-  Window(int width, int height, const char* title, Color bg);
+  Window(int width, int height, const char* title, SDL_Rect renderFrame);
+  Window(int width, int height, const char* title, SDL_Rect renderFrame, Color bg);
   ~Window();
 
   void Render();
-  
+
+  void addCamera(Camera* cam);
+  void removeCamera(Camera* cam);
   void addImage(ImageBase* image);
   void removeImage(ImageBase* image);
   
