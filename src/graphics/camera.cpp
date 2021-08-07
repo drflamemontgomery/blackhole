@@ -15,6 +15,7 @@ namespace blackhole::graphics {
     this->y = y;
 
     destRect = {(int)x, (int)y, w, h};
+    viewport = {0, 0, w, h};
   }
 
   Camera::~Camera() {
@@ -41,6 +42,12 @@ namespace blackhole::graphics {
     renderQueue.remove_if([image](const ImageHolder& value) {return value.image == image;});
   }
 
+
+  
+  SDL_Rect* Camera::getViewport() {
+    return &viewport;
+  }
+  
   SDL_Texture* Camera::getTexture() {
     SDL_SetRenderTarget(renderer, texture);
     SDL_RenderClear(renderer);
@@ -55,6 +62,10 @@ namespace blackhole::graphics {
     return texture;
   }
 
+  SDL_Texture* Camera::getCamTexture() {
+    return texture;
+  }
+  
   void Camera::addTime(float time) {
     for(auto image = renderQueue.begin(); image != renderQueue.end(); ++image) {
       image->image->addTime(time);
