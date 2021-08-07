@@ -10,7 +10,7 @@ using namespace blackhole;
 void game_main(void);
 
 
-graphics::Window window(600, 600, "Test Window");
+graphics::Window window(600, 600, "Test Window", {0, 0, 8192, 4096});
 graphics::Camera camera1(window.getRenderer(), 300, 600, 0, 0);
 graphics::Camera camera2(window.getRenderer(), 300, 600, 300, 0);
 graphics::SpriteSheet think_image("assets/Player_SpriteSheet.jpg", window.getRenderer(), 10, 10, 1, 5);
@@ -53,14 +53,10 @@ int main(int argc, char** argv) {
   think.setLayer(100);
   tilemap.getTileLayerImage(0)->setLayer(0);
 
-  camera1.addImage(tilemap.getTileLayerImage(0));
-  camera2.addImage(&think);
-
-  camera2.addImage(tilemap.getTileLayerImage(0));
-  camera1.addImage(&think);
-  
-  window.addImage(&camera1);
-  window.addImage(&camera2);
+  window.addImage(&think);
+  window.addImage(tilemap.getTileLayerImage(0));
+  window.addCamera(&camera2);
+  window.addCamera(&camera1);
   window.startMainLoop(game_main);
   while(!window.isClosed());
   return 0;
@@ -68,7 +64,7 @@ int main(int argc, char** argv) {
 
 float velX = 0;
 float velY = 0;
-float speed = 1.0f;
+float speed = 2*PTM_RATIO;
 
 void game_main(void) {
   if(window.keyDown(SDL_SCANCODE_LEFT)) {
@@ -96,8 +92,10 @@ void game_main(void) {
 
   
   body->SetLinearVelocity(b2Vec2(velX, velY));
-  world.Step(1.0f/60.0f, 6, 2);
+  world.Step(window.getDeltaTime(), 6, 2);
+  
+  think.setX(body->GetPosition().x);
+  think.setY(body->GetPosition().y);
 
-  think.setX(body->GetPosition().x/PTM_RATIO);
-  think.setY(body->GetPosition().y/PTM_RATIO);
+  camera1.getViewport()->x = -think.getX() + (int)(camera1.getViewport()->w/2);
 }
