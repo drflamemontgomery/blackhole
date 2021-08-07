@@ -98,13 +98,16 @@ namespace blackhole::graphics {
 	}
   }
 
-  void Window::addImage(ImageBase* image, int position) {
-	ImageHolder imageHolder = {
-	  position,
-	  image,
-	};
+  void Window::addImage(ImageBase* image) {
+    ImageHolder imageHolder = {
+      image
+    };
     renderQueue.push_back(imageHolder);
-	renderQueue.sort(compare_position);
+    renderQueue.sort(compare_position);
+  }
+
+  void Window::removeImage(ImageBase* image) {
+    renderQueue.remove_if([image](const ImageHolder& value) {return value.image == image;});
   }
   
   int Window::getWidth() {
@@ -183,7 +186,7 @@ namespace blackhole::graphics {
   }
   
   bool compare_position(const ImageHolder& first, const ImageHolder& second) {
-	return(first.position < second.position);
+    return(first.image->getLayer() < second.image->getLayer());
   }
 
   void renderThreadLoop(Window* window) {

@@ -11,9 +11,8 @@
 #include <stdio.h>
 #include <sys/time.h>
 #include <thread>
-//#include <chrono>
 #include <ctime>
-
+#include <memory>
 #include "color.h"
 #include "imageHolder.h"
 
@@ -55,7 +54,8 @@ class Window {
 
   void Render();
   
-  void addImage(ImageBase* image, int position);
+  void addImage(ImageBase* image);
+  void removeImage(ImageBase* image);
   
   int getWidth();
   int getHeight();
