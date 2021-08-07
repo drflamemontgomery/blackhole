@@ -153,10 +153,23 @@ namespace blackhole::graphics {
   SDL_Window* Window::getWindow() {
     return this->window;
   }
-
+  
   SDL_Renderer* Window::getRenderer() {
     return this->renderer;
   }
+
+  void Window::setRenderFrame(int width, int height) {
+    this->renderFrame.w = width;
+    this->renderFrame.h = height;
+
+    SDL_DestroyTexture(preRenderer);
+    preRenderer = SDL_CreateTexture(renderer,
+				    SDL_PIXELFORMAT_RGBX8888,
+				    SDL_TEXTUREACCESS_TARGET,
+				    renderFrame.w,
+				    renderFrame.h); 
+  }
+  
 
   void Window::setScale(floatXY scale) {
     this->scale = scale;

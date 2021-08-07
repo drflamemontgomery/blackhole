@@ -71,6 +71,8 @@ class Window {
   SDL_Window* getWindow();
   SDL_Renderer* getRenderer();
 
+  void setRenderFrame(int width, int height);
+
   void setScale(floatXY scale);
   floatXY getScale();
 

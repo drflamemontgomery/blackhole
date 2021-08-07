@@ -10,19 +10,13 @@ namespace blackhole::graphics {
     map = new Tmx::Map();
     map->ParseFile(file);
     
-
+    tileLayers = (Image**)malloc(map->GetNumTileLayers()*sizeof(Image*));
     SpriteSheet** tilesets;
     tilesets = (SpriteSheet**)malloc(map->GetNumTilesets()*sizeof(SpriteSheet*));
 
     for(int i = 0; i < map->GetNumTilesets(); i++) {
       const Tmx::Image* tilesetImage = map->GetTileset(i)->GetImage();
       std::string tilesetFilepath = map->GetFilepath() + tilesetImage->GetSource();
-      // SpriteSheet tilesetSpritesheet(tilesetFilepath.c_str(),
-      // 				     renderer, 0, 0,
-      // 				     map->GetTileset(i)->GetColumns(),
-      // 				     ceil(map->GetTileset(i)->GetTileCount()/
-      // 					  map->GetTileset(i)->GetColumns())
-      // 				     );
       tilesets[i] = new SpriteSheet(tilesetFilepath.c_str(),
 				    renderer, 0, 0,
 				    map->GetTileset(i)->GetColumns(),
@@ -43,7 +37,7 @@ namespace blackhole::graphics {
 					       map->GetTileWidth(),
 					       map->GetHeight()*
 					       map->GetTileHeight());
-      tileLayers.push_back(new Image("/home/looking/c_testing/asdf.png", renderer, layer->GetX(), layer->GetY()));
+      tileLayers[i] = new Image("/home/looking/c_testing/asdf.png", renderer, layer->GetX(), layer->GetY());
       
 
       SDL_Rect destrect = { 0, 0 , 0, 0 };
@@ -78,6 +72,8 @@ namespace blackhole::graphics {
   }
 
   Tilemap::~Tilemap() {
+    free(tileLayers);
+    tileLayers = 0;
   };
 
   

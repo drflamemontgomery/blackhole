@@ -12,7 +12,7 @@ namespace graphics {
 class Tilemap {
  private:
   Tmx::Map* map;
-  std::vector<Image*> tileLayers;
+  Image** tileLayers;
  public:
   Tilemap(const char* file, SDL_Renderer* renderer);
   ~Tilemap();
