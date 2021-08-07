@@ -3,7 +3,7 @@ SRCS=src/*.cpp
 HEADERS=
 OUTDIR=bin
 OUTFILE=main
-CFLAGS=-Wall -pedantic -g -lbox2d -lblackhole -lSDL2_image -lSDL2main -lSDL2 -lSDL2_mixer `sdl2-config --libs`
+CFLAGS=-Wall -pedantic -g -lbox2d -lblackhole -lSDL2_image -lSDL2main -lSDL2 -lSDL2_mixer -ltmxparser `sdl2-config --libs`
 
 exec : $(OUTDIR)
 	$(CC) $(SRCS) -o $(OUTDIR)/$(OUTFILE) $(CFLAGS)

@@ -16,7 +16,7 @@ graphics::SpriteSheet think_image("assets/Player_SpriteSheet.jpg", window.getRen
 int think_anim0[4] = {0, 1, 2, 3};
 
 graphics::Animation think(&think_image, 0, think_anim0, 4, 0.2f);
-
+graphics::Tilemap tilemap("assets/32_tilemap.tmx", window.getRenderer());
 
 b2World world = b2World(b2Vec2(0.0f, 0.0f));
 
@@ -33,9 +33,6 @@ b2FixtureDef fixtureDef;
 b2Fixture* fixture;
 
 int main(int argc, char** argv) {
-
-  printf("%s\n", argv[0]);
-
   bodyDef.type = b2_dynamicBody;
   bodyDef.position.Set(10.0f/PTM_RATIO, 20.0f/PTM_RATIO);
 
@@ -51,7 +48,8 @@ int main(int argc, char** argv) {
 
   fixture = body->CreateFixture(&fixtureDef);
   
-  window.addImage(&think, 0);
+  window.addImage(&think, 100);
+  window.addImage(tilemap.getTileLayerImage(0), 0);
   window.startMainLoop(game_main);
   while(!window.isClosed());
   return 0;
