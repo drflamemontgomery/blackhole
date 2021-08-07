@@ -4,3 +4,4 @@
 #include "graphics/image.h"
 #include "graphics/spritesheet.h"
 #include "graphics/window.h"
+#include "graphics/tilemap.h"
