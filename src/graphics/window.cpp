@@ -38,17 +38,17 @@ namespace blackhole::graphics {
   }
   
   bool Window::init() {
-	if(SDL_Init(SDL_INIT_VIDEO) < 0) {
-	  printf("Failed to Initialize SDL2\n");
-	  return false;
-	}
+    if(SDL_Init(SDL_INIT_VIDEO) < 0) {
+      printf("Failed to Initialize SDL2\n");
+      return false;
+    }
 	
-	this->window = SDL_CreateWindow(this->title,
-									SDL_WINDOWPOS_CENTERED,
-									SDL_WINDOWPOS_CENTERED,
-									this->width,
-									this->height,
-									0);
+    this->window = SDL_CreateWindow(this->title,
+				    SDL_WINDOWPOS_CENTERED,
+				    SDL_WINDOWPOS_CENTERED,
+				    this->width,
+				    this->height,
+				    0);
 	
 	if(!this->window) {
 	  printf("Failed to Initialize Window\n");
@@ -73,10 +73,10 @@ namespace blackhole::graphics {
 	while(running) {
 	  time = getTime();
 	  SDL_SetRenderDrawColor(renderer,
-							 bg_color.red,
-							 bg_color.green,
-							 bg_color.blue,
-							 bg_color.alpha);
+				 bg_color.red,
+				 bg_color.green,
+				 bg_color.blue,
+				 bg_color.alpha);
 	  SDL_RenderClear(renderer);
 	  //SDL_Rect destr;
 	  for(auto image = renderQueue.begin(); image != renderQueue.end(); ++image) {
