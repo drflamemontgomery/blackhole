@@ -11,6 +11,8 @@ void game_main(void);
 
 
 graphics::Window window(600, 600, "Test Window");
+graphics::Camera camera1(window.getRenderer(), 300, 600, 0, 0);
+graphics::Camera camera2(window.getRenderer(), 300, 600, 300, 0);
 graphics::SpriteSheet think_image("assets/Player_SpriteSheet.jpg", window.getRenderer(), 10, 10, 1, 5);
 
 int think_anim0[4] = {0, 1, 2, 3};
@@ -47,9 +49,18 @@ int main(int argc, char** argv) {
   fixtureDef.restitution = 0.0f;
 
   fixture = body->CreateFixture(&fixtureDef);
+
+  think.setLayer(100);
+  tilemap.getTileLayerImage(0)->setLayer(0);
+
+  camera1.addImage(tilemap.getTileLayerImage(0));
+  camera2.addImage(&think);
+
+  camera2.addImage(tilemap.getTileLayerImage(0));
+  camera1.addImage(&think);
   
-  window.addImage(&think, 100);
-  window.addImage(tilemap.getTileLayerImage(0), 0);
+  window.addImage(&camera1);
+  window.addImage(&camera2);
   window.startMainLoop(game_main);
   while(!window.isClosed());
   return 0;
