@@ -13,17 +13,21 @@ namespace graphics {
 class ImageBase {
  protected:
   SDL_RendererFlip rendererFlip = SDL_FLIP_NONE;
-  
+
+  char* source;
   SDL_Rect destRect;
   SDL_Texture* texture;
   void init(const char* file, SDL_Renderer* renderer);
  public:
+  
   virtual float getX();
   virtual float getY();
 
   virtual void addTime(float time);
   virtual void setFlipX(bool flipped);
   virtual void setFlipY(bool flipped);
+
+  virtual void setTexture(SDL_Texture* tex);
   
   virtual bool isFlippedX();
   virtual bool isFlippedY();
