@@ -10,7 +10,6 @@ namespace blackhole {
 namespace graphics {
 
 struct ImageHolder {
-  int position;
   ImageBase* image;
 };
 }}

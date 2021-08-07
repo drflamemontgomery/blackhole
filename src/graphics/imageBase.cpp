@@ -140,4 +140,13 @@ namespace blackhole::graphics {
   SDL_Texture* ImageBase::getTexture() {
     return texture;
   }
+
+
+  void ImageBase::setLayer(int layer) {
+    this->layer = layer;
+  }
+
+  int ImageBase::getLayer() {
+    return layer;
+  }
 }

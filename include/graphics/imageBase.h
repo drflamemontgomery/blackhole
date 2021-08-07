@@ -14,7 +14,8 @@ class ImageBase {
  protected:
   SDL_RendererFlip rendererFlip = SDL_FLIP_NONE;
 
-  char* source;
+  int layer = 0;
+  
   SDL_Rect destRect;
   SDL_Texture* texture;
   void init(const char* file, SDL_Renderer* renderer);
@@ -36,6 +37,9 @@ class ImageBase {
   virtual SDL_Rect* getDestRect();
   virtual SDL_Rect* getSrcRect();
   virtual SDL_Texture* getTexture();
+
+  virtual void setLayer(int layer);
+  virtual int getLayer();
 };
 }}
 
