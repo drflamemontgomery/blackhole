@@ -10,12 +10,13 @@ using namespace blackhole;
 void game_main(void);
 
 
-graphics::Window window(600, 600, "Test Window", {0, 0, 8192, 4096});
-graphics::Camera camera1(window.getRenderer(), 300, 600, 0, 0);
-graphics::Camera camera2(window.getRenderer(), 300, 600, 300, 0);
+graphics::Window window(600, 600, "Test Window", {0, 0, 128, 128});
+graphics::Camera camera1(window.getRenderer(), 600, 600, 0, 0);
 graphics::SpriteSheet think_image("assets/Player_SpriteSheet.jpg", window.getRenderer(), 10, 10, 1, 5);
 
 int think_anim0[4] = {0, 1, 2, 3};
+
+int fps = 1;
 
 graphics::Animation think(&think_image, 0, think_anim0, 4, 0.2f);
 graphics::Tilemap tilemap("assets/32_tilemap.tmx", window.getRenderer());
@@ -55,9 +56,14 @@ int main(int argc, char** argv) {
 
   window.addImage(&think);
   window.addImage(tilemap.getTileLayerImage(0));
-  window.addCamera(&camera2);
   window.addCamera(&camera1);
-  window.startMainLoop(game_main);
+
+  window.setRenderFrame(tilemap.getMap()->GetWidth()*
+			tilemap.getMap()->GetTileWidth(),
+			tilemap.getMap()->GetHeight()*
+			tilemap.getMap()->GetTileHeight());
+  
+  window.startMainLoop(game_main, 60);
   while(!window.isClosed());
   return 0;
 }
@@ -65,6 +71,11 @@ int main(int argc, char** argv) {
 float velX = 0;
 float velY = 0;
 float speed = 2*PTM_RATIO;
+
+bool equals_pressed = false;
+bool minus_pressed = false;
+
+
 
 void game_main(void) {
   if(window.keyDown(SDL_SCANCODE_LEFT)) {
@@ -89,7 +100,6 @@ void game_main(void) {
     velX = 0;
     velY = 0;
   }
-
   
   body->SetLinearVelocity(b2Vec2(velX, velY));
   world.Step(window.getDeltaTime(), 6, 2);

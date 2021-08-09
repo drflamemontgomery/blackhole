@@ -78,7 +78,6 @@ namespace blackhole::graphics {
   // Rendering Function
   
   void Window::Render() {
-    float time_dif;
     time_t time;
     while(running) {
       time = getTime();
@@ -92,8 +91,24 @@ namespace blackhole::graphics {
       SDL_RenderClear(renderer);
 
       for(auto image = renderQueue.begin(); image != renderQueue.end(); ++image) {
-	SDL_RenderCopyEx(renderer, image->image->getTexture(), image->image->getSrcRect(),image->image->getDestRect(), 0, NULL, image->image->getRendererFlip());
-	image->image->addTime(time_dif);
+	SDL_Rect* destRect = image->image->getDestRect();
+	for(auto cam = cameraQueue.begin(); cam != cameraQueue.end(); ++cam) {
+	  SDL_Rect* viewport = cam->cam->getViewport();
+	  
+	  if((viewport->x < destRect->x || viewport->w > destRect->x) &&
+	     (viewport->y < destRect->y || viewport->h > destRect->y)) {
+	    SDL_RenderCopyEx(renderer, image->image->getTexture(), image->image->getSrcRect(), destRect, 0, NULL, image->image->getRendererFlip());
+	    break;
+	  }
+	  if((viewport->x < destRect->x + destRect->w  ||
+	     viewport->w > destRect->x + destRect->w ) &&
+	     (viewport->y < destRect->y + destRect->h  ||
+	      viewport->h > destRect->y + destRect->h)) {
+	    SDL_RenderCopyEx(renderer, image->image->getTexture(), image->image->getSrcRect(), destRect, 0, NULL, image->image->getRendererFlip());
+	    break;
+	  }
+	}
+	image->image->addTime(frameTime);
       }
 
       for(auto cam = cameraQueue.begin(); cam  != cameraQueue.end(); ++cam) {
@@ -111,10 +126,10 @@ namespace blackhole::graphics {
       
       SDL_RenderPresent(renderer);
       
-      while(difftime(getTime(), time) < 15.66) {
+      while(difftime(getTime(), time) < 1000.0/fps) {
 	SDL_Delay(1);
       }
-      time_dif = difftime(getTime(), time)/1000;
+      frameTime = difftime(getTime(), time)/1000;
     }
   }
 
@@ -141,6 +156,15 @@ namespace blackhole::graphics {
   void Window::removeCamera(Camera* cam) {
     cameraQueue.remove_if([cam](const CameraHolder& value) {return value.cam == cam;});
   }
+
+  void Window::setFps(int fps) {
+    this->fps = fps;
+  }
+
+  float Window::getTimeSinceLastFrame() {
+    return frameTime;
+  }
+  
   
   int Window::getWidth() {
     return width;
@@ -158,6 +182,7 @@ namespace blackhole::graphics {
     return this->renderer;
   }
 
+  
   void Window::setRenderFrame(int width, int height) {
     this->renderFrame.w = width;
     this->renderFrame.h = height;
@@ -180,7 +205,8 @@ namespace blackhole::graphics {
     return scale;
   }
 
-  void Window::startMainLoop(void (*_main)()) {
+  void Window::startMainLoop(void (*_main)(), int fps) {
+    this->fps = fps;
     this->running = true;
     this->renderThread = std::thread(renderThreadLoop, this);
     this->eventThread = std::thread(eventThreadLoop, this);

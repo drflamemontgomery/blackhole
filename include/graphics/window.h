@@ -41,7 +41,10 @@ class Window {
   const char* title;
 
   floatXY scale;
+  int fps;
 
+  float frameTime;
+  
   std::list<CameraHolder> cameraQueue;
   std::list<ImageHolder> renderQueue;
   const Uint8* keyboard_state = SDL_GetKeyboardState(NULL);
@@ -76,10 +79,12 @@ class Window {
   void setScale(floatXY scale);
   floatXY getScale();
 
-  void startMainLoop(void (*_main)());
+  void startMainLoop(void (*_main)(), int fps);
   void handleEvents();
   bool isClosed();
 
+  float getTimeSinceLastFrame();
+  void setFps(int fps);
 
   double getDeltaTime();
   bool keyDown(SDL_Scancode scancode);
