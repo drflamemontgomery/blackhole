@@ -1,5 +1,5 @@
 CC=g++
-SRCS=src/blackhole_funcs.cpp src/graphics/animation.cpp src/graphics/animator_controller.cpp src/graphics/imageBase.cpp src/graphics/image.cpp src/graphics/spritesheet.cpp src/graphics/tilemap.cpp src/graphics/window.cpp src/graphics/camera.cpp
+SRCS=src/graphics/animation.cpp src/graphics/animator_controller.cpp src/graphics/imageBase.cpp src/graphics/image.cpp src/graphics/spritesheet.cpp src/graphics/tilemap.cpp src/graphics/window.cpp src/graphics/camera.cpp
 HEADERS=include/graphics/*.h
 HEADERDIR=include
 OBJDIR=obj
