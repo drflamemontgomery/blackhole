@@ -55,7 +55,7 @@ class SpriteSheet : public ImageBase {
   SpriteSheet(const char* file, SDL_Renderer* renderer, float x = 0, float y = 0, int cols = 1, int rows = 1);
   ~SpriteSheet();
 
-  bool setFrame(int frame);
+  void setFrame(int frame);
   int getFrame();
   
   void setX(float x);

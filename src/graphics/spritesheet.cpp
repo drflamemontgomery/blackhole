@@ -57,7 +57,7 @@ namespace blackhole::graphics {
   SpriteSheet::~SpriteSheet() {
   }
 
-  bool SpriteSheet::setFrame(int frame) {
+  void SpriteSheet::setFrame(int frame) {
 	frame %= frames;
 	this->frame = frame;
 	this->srcRect = {
