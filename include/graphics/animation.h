@@ -39,36 +39,135 @@
 
 namespace blackhole {
 namespace graphics {
-class Animation : public ImageBase {
- private:
-  SpriteSheet* images;
-  int* frames;
-  int num_frames;
-  float speed;
-  float time = 0;
- public:
-  Animation(SpriteSheet* images, int frame, int* frames, int num_frames, float speed = 1);
-  ~Animation();
+
+  // A class for looping through spritesheet frames
+  
+  class Animation : public ImageBase {
+  private:
+    SpriteSheet* images;
+    int* frames;
+    int num_frames;
+    float speed;
+    float time = 0;
+  public:
+    Animation(SpriteSheet* images, int frame, int* frames, int num_frames, float speed = 1);
+    ~Animation();
+
+    /**
+     *  \brief Set the x position of the animation's spritesheet
+     *
+     *  \param x The x position you want the sprite to render on
+     *
+     *  \sa getX()
+     *  \sa getY()
+     *  \sa setY()
+     */
+    void setX(float x);
+
+    /**
+     *  \brief Set the y position of the animation's spritesheet
+     *
+     *  \param y the y position you want the sprite to render on
+     *
+     *  \sa getY()
+     *  \sa getX()
+     *  \sa setX()
+     */
+    void setY(float y);
+
+    /**
+     *  \brief Get the x position of the animation's spritesheet
+     *
+     *  \sa setX()
+     *  \sa setY()
+     *  \sa getY()
+     */
+    float getX();
+
+    /**
+     *  \brief Get the y position of the animation's spritesheet
+     *
+     *  \sa setY()
+     *  \sa setX()
+     *  \sa getX()
+     */
+    float getY();
 
 
-  void setX(float x);
-  void setY(float y);
-  float getX();
-  float getY();
-  
-  bool setFrame(int frame);
-  int getFrame();
 
-  void resetAnimation();
-  void addTime(float time);
-  
-  SpriteSheet* getSpriteSheet();
-  SDL_Texture* getTexture();
 
+    
+    /**
+     *  \brief Set the frame for the animation to show
+     *
+     *  \param frame The frame you want the animation to show
+     *
+     *  \sa getFrame()
+     *  \sa resetAnimation()
+     */
+    void setFrame(int frame);
+
+    /**
+     *  \brief Get the frame the animation is showing
+     *
+     *  \sa setFrame()
+     *  \sa resetAnimation()
+     */
+    int getFrame();
+
+
+
+    /**
+     *  \brief set the frame back to 0
+     *
+     *  \sa setFrame()
+     *  \sa getFrame()
+     */
+    void resetAnimation();
+
+
+    /**
+     *  \brief add the amount of time passed so that the animation
+     *         can update.
+     *
+     *  \param time The amount of time passed in the frame
+     */
+    void addTime(float time);
+
+
+
+    /**
+     *  \brief Get a pointer to the spritesheet
+     *
+     *  \return Spritesheet* of animation spritesheet
+     */
+    SpriteSheet* getSpriteSheet();
+
+    /**
+     *  \brief Get a pointer to the spritesheet texture
+     *
+     *  \return SDL_Texture* of the spritesheet for rendering
+     */
+    SDL_Texture* getTexture();
+
+
+    
+    /**
+     *  \brief Get a pointer to the destination rect used for positioning
+     *         with the renderer
+     *
+     *  \return SDL_Rect* destRect of spritesheet
+     */
+    SDL_Rect* getDestRect();
+
+    /**
+     *  \brief Get a pointer to the source rect used for getting the frame
+     *         of the spritesheet
+     *
+     *  \return SDL_Rect* srcRect of spritesheet
+     */
+    SDL_Rect* getSrcRect();
   
-  SDL_Rect* getDestRect();
-  SDL_Rect* getSrcRect();
-  
-};
+  };
 }}
 #endif
