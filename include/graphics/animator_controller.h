@@ -40,40 +40,146 @@
 namespace blackhole {
 namespace graphics {
 
-struct animation_holder {
-  const char* name;
-  Animation animation;
-};
-  
-class AnimatorController : public ImageBase {
- private:
+  /**
+   *  \brief Information of animation
+   */
+  struct animation_holder {
+    const char* name;     /**< The name of the animation */
+    Animation animation;  /**< The animation from spritesheets */
+  };
 
-  float x;
-  float y;
+  /**
+   *  \brief The class for holding and controlling Animations
+   */
+  class AnimatorController : public ImageBase {
+  private:
 
-  int array_length;
-  animation_holder* animations;
-  Animation* currentAnimation;
-  const char* currentAnimationName;
- public:
-  AnimatorController(animation_holder* animations, long int array_length);
-  ~AnimatorController();
+    float x;
+    float y;
 
-  void setAnimation(const char* animation);
-  Animation* getAnimation();
-  const char* getAnimationName();
-  
-  void setX(float x);
-  void setY(float y);
-  float getX();
-  float getY();
+    int array_length;
+    animation_holder* animations;
+    Animation* currentAnimation;
+    const char* currentAnimationName;
+  public:
 
-  void addTime(float time);
-  
-  SDL_Texture* getTexture();
-  SDL_Rect* getDestRect();
-  SDL_Rect* getSrcRect();
-};  
+    /**
+     *  \brief The constructor of the AnimatorController
+     *
+     *  \param animations The array of animations
+     *  \param array_length The amount of animations
+     */
+    AnimatorController(animation_holder* animations, long int array_length);
+    ~AnimatorController();
+
+    /**
+     *  \brief Set the animation to be displayed
+     *
+     *  \param animation The name of the animation to display eg. running
+     *
+     *  \sa getAnimation()
+     *  \sa getAnimationName()
+     */
+    void setAnimation(const char* animation);
+
+    /**
+     *  \brief Get the animation that is being displayed
+     *
+     *  \return Animation* of the animation that is being displayed 
+     *
+     *  \sa setAnimation()
+     *  \sa getAnimationName()
+     */
+    Animation* getAnimation();
+
+    /**
+     *  \brief Get the name of the animation that is being displayed
+     *
+     *  \return const char* name of the animation being displayed eg. running
+     *  \sa getAnimation()
+     *  \sa setAnimation()
+     */
+    const char* getAnimationName();
+
+
+
+    /**
+     *  \brief Set the x position of the animation being displayed
+     *
+     *  \param x The x position you want the sprite to render on
+     *
+     *  \sa getX()
+     *  \sa getY()
+     *  \sa setY()
+     */
+    void setX(float x);
+
+    /**
+     *  \brief Set the y position of the animation being displayed
+     *
+     *  \param y The y position you want the sprite to render on
+     *
+     *  \sa getY()
+     *  \sa getX()
+     *  \sa setX()
+     */
+    void setY(float y);
+
+    /**
+     *  \brief Get the x position of the animation being displayed
+     *
+     *  \sa setX()
+     *  \sa setY()
+     *  \sa getY()
+     */
+    float getX();
+
+    /**
+     *  \brief Get the y position of the animation being displayed
+     *
+     *  \sa setY()
+     *  \sa setX()
+     *  \sa getX()
+     */
+    float getY();
+
+
+
+    /**
+     *  \brief add the amount of time passed so that the animation
+     *         can update.
+     *
+     *  \param time The amount of time passed in the frame
+     */
+    void addTime(float time);
+
+
+    
+    /**
+     *  \brief Get a pointer to the animation texture
+     *
+     *  \return SDL_Texture* of the animation for rendering
+     */
+    SDL_Texture* getTexture();
+
+
+    
+    /**
+     *  \brief Get a pointer to the destination rect used for positioning
+     *         with the renderer
+     *
+     *  \return SDL_Rect* destRect of animation
+     */
+    SDL_Rect* getDestRect();
+
+    /**
+     *  \brief Get a pointer to the source rect used for getting the frame
+     *         of the animation
+     *
+     *  \return SDL_Rect* srcRect of animation
+     */
+    SDL_Rect* getSrcRect();
+  };  
 }}
 
 #endif

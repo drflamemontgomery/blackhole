@@ -40,8 +40,9 @@
 namespace blackhole {
 namespace graphics {
 
-  // A class for looping through spritesheet frames
-  
+  /**
+   *  \brief The class for looping through spritesheet frames
+   */
   class Animation : public ImageBase {
   private:
     SpriteSheet* images;
@@ -50,6 +51,16 @@ namespace graphics {
     float speed;
     float time = 0;
   public:
+
+    /**
+     *  \brief Constructor of Animation.
+     *
+     *  \param images The pointer to the spritesheet used for frames
+     *  \param frame The starting frame
+     *  \param frames The order of frames for the animation eg. 0, 2, 1, 2
+     *  \param num_frames The number of frames in the animation eg. 4
+     *  \param speed The amount of time between frames
+     */
     Animation(SpriteSheet* images, int frame, int* frames, int num_frames, float speed = 1);
     ~Animation();
 

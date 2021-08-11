@@ -95,10 +95,4 @@ namespace blackhole::graphics {
   SDL_Texture* Camera::getCamTexture() {
     return texture;
   }
-  
-  void Camera::addTime(float time) {
-    for(auto image = renderQueue.begin(); image != renderQueue.end(); ++image) {
-      image->image->addTime(time);
-    }
-  }
 }

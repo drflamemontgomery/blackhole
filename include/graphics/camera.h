@@ -39,30 +39,42 @@
 
 namespace blackhole {
 namespace graphics {
-class Camera : public ImageBase {
- private:
-  float x;
-  float y;
-  SDL_Rect viewport;
-  std::list<ImageHolder> renderQueue;
 
-  SDL_Renderer* renderer;
- public:
-  Camera(SDL_Renderer* renderer, int w, int h, float x = 0, float y = 0);
-  ~Camera();
+  /**
+   *  \brief The class for viewing images
+   */
+  class Camera : public ImageBase {
+  private:
+    float x;
+    float y;
+    SDL_Rect viewport;
+    std::list<ImageHolder> renderQueue;
 
-  void addTime(float time);
+    SDL_Renderer* renderer;
+  public:
+    /**
+     *  \brief The Constructor of Camera
+     *
+     *  \param renderer The renderer of the window
+     *  \param w The width of the camera
+     *  \param h The height of the camera
+     *  \param x The x position of the camera
+     *  \param y the y position of the camera
+     */
+    Camera(SDL_Renderer* renderer, int w, int h, float x = 0, float y = 0);
+    ~Camera();
+
   
-  void setX(float x);
-  void setY(float y);
+    void setX(float x);
+    void setY(float y);
   
-  void addImage(ImageBase* image);
-  void removeImage(ImageBase* tex);
+    void addImage(ImageBase* image);
+    void removeImage(ImageBase* tex);
 
-  SDL_Rect* getViewport();
-  SDL_Texture* getCamTexture();
-  SDL_Texture* getTexture();
-};
+    SDL_Rect* getViewport();
+    SDL_Texture* getCamTexture();
+    SDL_Texture* getTexture();
+  };
 }}
 
 #endif

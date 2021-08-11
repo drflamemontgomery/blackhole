@@ -66,8 +66,6 @@ namespace blackhole::graphics {
 	  row_size,
 	  col_size
 	};
-
-	return true;
   }
 
   int SpriteSheet::getFrame() {
