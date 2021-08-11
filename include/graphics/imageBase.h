@@ -38,38 +38,43 @@
 
 
 namespace blackhole {
-namespace graphics {  
-class ImageBase {
- protected:
-  SDL_RendererFlip rendererFlip = SDL_FLIP_NONE;
+namespace graphics {
 
-  int layer = 0;
+  /**
+   *  \brief The abstract class for all rendered images
+   */
   
-  SDL_Rect destRect;
-  SDL_Texture* texture;
-  void init(const char* file, SDL_Renderer* renderer);
- public:
-  
-  virtual float getX();
-  virtual float getY();
+  class ImageBase {
+  protected:
+    SDL_RendererFlip rendererFlip = SDL_FLIP_NONE;
 
-  virtual void addTime(float time);
-  virtual void setFlipX(bool flipped);
-  virtual void setFlipY(bool flipped);
-
-  virtual void setTexture(SDL_Texture* tex);
+    int layer = 0;
   
-  virtual bool isFlippedX();
-  virtual bool isFlippedY();
+    SDL_Rect destRect;
+    SDL_Texture* texture;
+    void init(const char* file, SDL_Renderer* renderer);
+  public:
   
-  virtual SDL_RendererFlip getRendererFlip();
-  virtual SDL_Rect* getDestRect();
-  virtual SDL_Rect* getSrcRect();
-  virtual SDL_Texture* getTexture();
+    virtual float getX();
+    virtual float getY();
 
-  virtual void setLayer(int layer);
-  virtual int getLayer();
-};
+    virtual void addTime(float time);
+    virtual void setFlipX(bool flipped);
+    virtual void setFlipY(bool flipped);
+
+    virtual void setTexture(SDL_Texture* tex);
+  
+    virtual bool isFlippedX();
+    virtual bool isFlippedY();
+  
+    virtual SDL_RendererFlip getRendererFlip();
+    virtual SDL_Rect* getDestRect();
+    virtual SDL_Rect* getSrcRect();
+    virtual SDL_Texture* getTexture();
+
+    virtual void setLayer(int layer);
+    virtual int getLayer();
+  };
 }}
 
 #endif

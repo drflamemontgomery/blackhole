@@ -46,7 +46,7 @@ namespace graphics {
    */
   struct animation_holder {
     const char* name;     /**< The name of the Animation */
-    Animation animation;  /**< The Animation from SpriteSheets */
+    Animation animation;  /**< The Animation from SpriteSheet */
   };
 
   /**

@@ -35,22 +35,78 @@
 #include "imageBase.h"
 
 namespace blackhole {
-namespace graphics {  
-class Image : public ImageBase {
-private:
-  float x;
-  float y;
-public:
-  Image(const char* file, SDL_Renderer* renderer, float x = 0, float y = 0);
-  ~Image();
-  
-  void setX(float x);
-  void setY(float y);
-  float getX();
-  float getY();
+namespace graphics {
 
-  SDL_Rect* getDestRect();
-};
+  /**
+   *  \brief class for simple Image rendering using
+   *         built on ImageBase
+   */
+  class Image : public ImageBase {
+  private:
+    float x;
+    float y;
+  public:
+
+    /**
+     *  \brief Constructor of Image
+     *
+     *  \param file The location of image file
+     *  \param renderer The renderer of the Window
+     *  \param x The x position of the Image
+     *  \param y the y position of the Image
+     */
+    Image(const char* file, SDL_Renderer* renderer, float x = 0, float y = 0);
+    ~Image();
+
+    /**
+     *  \brief Set the x position of the Image
+     *
+     *  \param x The x position you want the sprite to render on
+     *
+     *  \sa getX()
+     *  \sa getY()
+     *  \sa setY()
+     */
+    void setX(float x);
+
+    /**
+     *  \brief Set the y position of the Image
+     *
+     *  \param y the y position you want the sprite to render on
+     *
+     *  \sa getY()
+     *  \sa getX()
+     *  \sa setX()
+     */
+    void setY(float y);
+
+    /**
+     *  \brief Get the x position of the Image
+     *
+     *  \sa setX()
+     *  \sa setY()
+     *  \sa getY()
+     */
+    float getX();
+
+    /**
+     *  \brief Get the y position of the Image
+     *
+     *  \sa setY()
+     *  \sa setX()
+     *  \sa getX()
+     */
+    float getY();
+
+
+    /**
+     *  \brief Get a pointer to the destination rect used for positioning
+     *         with the renderer
+     *
+     *  \return SDL_Rect* destRect of Image
+     */
+    SDL_Rect* getDestRect();
+  };
 }}
 
 #endif

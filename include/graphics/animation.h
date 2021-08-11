@@ -66,7 +66,7 @@ namespace graphics {
     ~Animation();
 
     /**
-     *  \brief Set the x position of the animation's SpriteSheet
+     *  \brief Set the x position of the Animation SpriteSheet
      *
      *  \param x The x position you want the sprite to render on
      *
@@ -77,7 +77,7 @@ namespace graphics {
     void setX(float x);
 
     /**
-     *  \brief Set the y position of the animation's SpriteSheet
+     *  \brief Set the y position of the Animation SpriteSheet
      *
      *  \param y the y position you want the sprite to render on
      *
@@ -88,7 +88,7 @@ namespace graphics {
     void setY(float y);
 
     /**
-     *  \brief Get the x position of the animation's SpriteSheet
+     *  \brief Get the x position of the Animation SpriteSheet
      *
      *  \sa setX()
      *  \sa setY()
@@ -97,7 +97,7 @@ namespace graphics {
     float getX();
 
     /**
-     *  \brief Get the y position of the animation's SpriteSheet
+     *  \brief Get the y position of the Animation SpriteSheet
      *
      *  \sa setY()
      *  \sa setX()
@@ -110,9 +110,9 @@ namespace graphics {
 
     
     /**
-     *  \brief Set the frame for the animation to show
+     *  \brief Set the frame for the Animation to show
      *
-     *  \param frame The frame you want the animation to show
+     *  \param frame The frame you want the Animation to show
      *
      *  \sa getFrame()
      *  \sa resetAnimation()
@@ -120,7 +120,7 @@ namespace graphics {
     void setFrame(int frame);
 
     /**
-     *  \brief Get the frame the animation is showing
+     *  \brief Get the frame the Animation is showing
      *
      *  \sa setFrame()
      *  \sa resetAnimation()
@@ -139,7 +139,7 @@ namespace graphics {
 
 
     /**
-     *  \brief add the amount of time passed so that the animation
+     *  \brief add the amount of time passed so that the Animation
      *         can update.
      *
      *  \param time The amount of time passed in the frame
@@ -151,7 +151,7 @@ namespace graphics {
     /**
      *  \brief Get a pointer to the SpriteSheet
      *
-     *  \return SpriteSheet* of animation SpriteSheet
+     *  \return SpriteSheet* of Animation SpriteSheet
      */
     SpriteSheet* getSpriteSheet();
 

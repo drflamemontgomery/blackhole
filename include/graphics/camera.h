@@ -55,36 +55,37 @@ namespace graphics {
     /**
      *  \brief The Constructor of Camera
      *
-     *  \param renderer The renderer of the window
-     *  \param w The width of the camera
-     *  \param h The height of the camera
-     *  \param x The x position of the camera
-     *  \param y the y position of the camera
+     *  \param renderer The renderer of the Window
+     *  \param w The width of the Camera
+     *  \param h The height of the Camera
+     *  \param x The x position of the Camera
+     *  \param y the y position of the Camera
      */
     Camera(SDL_Renderer* renderer, int w, int h, float x = 0, float y = 0);
     ~Camera();
 
 
     /**
-     *  \brief adjusts time for the images when used as an image collator
+     *  \brief adjusts time for the images when Camera is used as 
+     *         an image collator
      *
      *  \param time The amount of time passed in the frame
      */
     void addTime(float time);
     
     /**
-     *  \brief Set the x position of the camera
+     *  \brief Set the x position of the Camera
      *
-     *  \param x The x position you want the camera to view
+     *  \param x The x position you want the Camera to view
      *
      *  \sa setY()
      */
     void setX(float x);
 
     /**
-     *  \brief Set the y position of the camera
+     *  \brief Set the y position of the Camera
      *
-     *  \param y The y position you want the camera to view
+     *  \param y The y position you want the Camera to view
      *
      *  \sa setX()
      */
@@ -92,19 +93,19 @@ namespace graphics {
 
 
     /**
-     *  \brief Add an image to the camera for collating.
-     *         Use for images only this camera can see
+     *  \brief Add an ImageBase based class to the Camera for collating.
+     *         Use for ImageBase only this Camera can see
      *
-     *  \param image pointer to the image for rendering
+     *  \param image pointer to the ImageBase for rendering
      *
      *  \sa removeImage()
      */
     void addImage(ImageBase* image);
 
     /**
-     *  \brief Remove an image from the camera
+     *  \brief Remove an ImageBase based class from the camera
      *
-     *  \param image pointer to the image you want to remove
+     *  \param image pointer to the ImageBase you want to remove
      *
      *  \sa addImage()
      */
@@ -113,21 +114,21 @@ namespace graphics {
 
 
     /**
-     *  \brief Get the size of the camera's viewport
+     *  \brief Get the size of the Camera viewport
      *
      *  \return SDL_Rect* containing the size of the viewport
      */
     SDL_Rect* getViewport();
 
     /**
-     *  \brief Get the texture of the cam for copying renderer
+     *  \brief Get the texture of the Camera for copying renderer
      *
      *  \return SDL_Texture* to be erased and copied over for the main renderer
      */
     SDL_Texture* getCamTexture();
 
     /**
-     *  \brief Get the texture of the camera with its images
+     *  \brief Get the texture of the Camera with its images
      *
      *  \return SDL_Texture* to be copied to the main renderer
      */
