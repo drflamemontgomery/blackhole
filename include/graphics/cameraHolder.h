@@ -37,9 +37,12 @@
 
 namespace blackhole {
 namespace graphics {
-struct CameraHolder {
-    Camera* cam;
-};
+  /**
+   *  \brief Holder for the Camera address to prevent pointer corruption
+   */
+  struct CameraHolder {
+    Camera* cam;  /**< pointer to the Camera */
+  };
 }}
 
 #endif

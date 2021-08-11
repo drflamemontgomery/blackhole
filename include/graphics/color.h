@@ -35,11 +35,14 @@
 namespace blackhole {
 namespace graphics {
 
+  /**
+   *  \brief A struct for holding Color values
+   */
   struct Color {
-	int red;
-	int green;
-	int blue;
-	int alpha;
+    int red;   /**< min 0 : max 255 */
+    int green; /**< min 0 : max 255 */
+    int blue;  /**< min 0 : max 255 */
+    int alpha; /**< min 0 : max 255 */
   };
   
 }}

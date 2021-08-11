@@ -41,7 +41,8 @@ namespace blackhole {
 namespace graphics {
 
   /**
-   *  \brief The class for looping through spritesheet frames
+   *  \brief The class for looping through SpriteSheet frames
+   *         built on ImageBase
    */
   class Animation : public ImageBase {
   private:
@@ -55,7 +56,7 @@ namespace graphics {
     /**
      *  \brief Constructor of Animation.
      *
-     *  \param images The pointer to the spritesheet used for frames
+     *  \param images The pointer to the SpriteSheet used for frames
      *  \param frame The starting frame
      *  \param frames The order of frames for the animation eg. 0, 2, 1, 2
      *  \param num_frames The number of frames in the animation eg. 4
@@ -65,7 +66,7 @@ namespace graphics {
     ~Animation();
 
     /**
-     *  \brief Set the x position of the animation's spritesheet
+     *  \brief Set the x position of the animation's SpriteSheet
      *
      *  \param x The x position you want the sprite to render on
      *
@@ -76,7 +77,7 @@ namespace graphics {
     void setX(float x);
 
     /**
-     *  \brief Set the y position of the animation's spritesheet
+     *  \brief Set the y position of the animation's SpriteSheet
      *
      *  \param y the y position you want the sprite to render on
      *
@@ -87,7 +88,7 @@ namespace graphics {
     void setY(float y);
 
     /**
-     *  \brief Get the x position of the animation's spritesheet
+     *  \brief Get the x position of the animation's SpriteSheet
      *
      *  \sa setX()
      *  \sa setY()
@@ -96,7 +97,7 @@ namespace graphics {
     float getX();
 
     /**
-     *  \brief Get the y position of the animation's spritesheet
+     *  \brief Get the y position of the animation's SpriteSheet
      *
      *  \sa setY()
      *  \sa setX()
@@ -148,16 +149,16 @@ namespace graphics {
 
 
     /**
-     *  \brief Get a pointer to the spritesheet
+     *  \brief Get a pointer to the SpriteSheet
      *
-     *  \return Spritesheet* of animation spritesheet
+     *  \return SpriteSheet* of animation SpriteSheet
      */
     SpriteSheet* getSpriteSheet();
 
     /**
-     *  \brief Get a pointer to the spritesheet texture
+     *  \brief Get a pointer to the SpriteSheet texture
      *
-     *  \return SDL_Texture* of the spritesheet for rendering
+     *  \return SDL_Texture* of the SpriteSheet for rendering
      */
     SDL_Texture* getTexture();
 
@@ -167,15 +168,15 @@ namespace graphics {
      *  \brief Get a pointer to the destination rect used for positioning
      *         with the renderer
      *
-     *  \return SDL_Rect* destRect of spritesheet
+     *  \return SDL_Rect* destRect of SpriteSheet
      */
     SDL_Rect* getDestRect();
 
     /**
      *  \brief Get a pointer to the source rect used for getting the frame
-     *         of the spritesheet
+     *         of the SpriteSheet
      *
-     *  \return SDL_Rect* srcRect of spritesheet
+     *  \return SDL_Rect* srcRect of SpriteSheet
      */
     SDL_Rect* getSrcRect();
   

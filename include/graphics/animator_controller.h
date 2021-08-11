@@ -25,7 +25,7 @@
 /**
  * \file animator_controller.h
  *
- * A blackhole library class for controlling animation frames
+ * A blackhole library class for controlling Animation frames
  */
 
 #pragma once
@@ -41,15 +41,16 @@ namespace blackhole {
 namespace graphics {
 
   /**
-   *  \brief Information of animation
+   *  \brief Information of Animation
+   *         built on ImageBase
    */
   struct animation_holder {
-    const char* name;     /**< The name of the animation */
-    Animation animation;  /**< The animation from spritesheets */
+    const char* name;     /**< The name of the Animation */
+    Animation animation;  /**< The Animation from SpriteSheets */
   };
 
   /**
-   *  \brief The class for holding and controlling Animations
+   *  \brief The class for holding and controlling Animation
    */
   class AnimatorController : public ImageBase {
   private:
@@ -66,16 +67,16 @@ namespace graphics {
     /**
      *  \brief The constructor of the AnimatorController
      *
-     *  \param animations The array of animations
-     *  \param array_length The amount of animations
+     *  \param animations The array of Animation
+     *  \param array_length The amount of Animation
      */
     AnimatorController(animation_holder* animations, long int array_length);
     ~AnimatorController();
 
     /**
-     *  \brief Set the animation to be displayed
+     *  \brief Set the Animation to be displayed
      *
-     *  \param animation The name of the animation to display eg. running
+     *  \param animation The name of the Animation to display eg. running
      *
      *  \sa getAnimation()
      *  \sa getAnimationName()
@@ -83,9 +84,9 @@ namespace graphics {
     void setAnimation(const char* animation);
 
     /**
-     *  \brief Get the animation that is being displayed
+     *  \brief Get the Animation that is being displayed
      *
-     *  \return Animation* of the animation that is being displayed 
+     *  \return Animation* of the Animation that is being displayed 
      *
      *  \sa setAnimation()
      *  \sa getAnimationName()
@@ -93,9 +94,10 @@ namespace graphics {
     Animation* getAnimation();
 
     /**
-     *  \brief Get the name of the animation that is being displayed
+     *  \brief Get the name of the Animation that is being displayed
      *
-     *  \return const char* name of the animation being displayed eg. running
+     *  \return const char* name of the Animation being displayed eg. running
+     *
      *  \sa getAnimation()
      *  \sa setAnimation()
      */
@@ -104,7 +106,7 @@ namespace graphics {
 
 
     /**
-     *  \brief Set the x position of the animation being displayed
+     *  \brief Set the x position of the Animation being displayed
      *
      *  \param x The x position you want the sprite to render on
      *
@@ -115,7 +117,7 @@ namespace graphics {
     void setX(float x);
 
     /**
-     *  \brief Set the y position of the animation being displayed
+     *  \brief Set the y position of the Animation being displayed
      *
      *  \param y The y position you want the sprite to render on
      *
@@ -126,7 +128,7 @@ namespace graphics {
     void setY(float y);
 
     /**
-     *  \brief Get the x position of the animation being displayed
+     *  \brief Get the x position of the Animation being displayed
      *
      *  \sa setX()
      *  \sa setY()
@@ -135,7 +137,7 @@ namespace graphics {
     float getX();
 
     /**
-     *  \brief Get the y position of the animation being displayed
+     *  \brief Get the y position of the Animation being displayed
      *
      *  \sa setY()
      *  \sa setX()
@@ -146,7 +148,7 @@ namespace graphics {
 
 
     /**
-     *  \brief add the amount of time passed so that the animation
+     *  \brief add the amount of time passed so that the Animation
      *         can update.
      *
      *  \param time The amount of time passed in the frame
@@ -156,9 +158,9 @@ namespace graphics {
 
     
     /**
-     *  \brief Get a pointer to the animation texture
+     *  \brief Get a pointer to the Animation texture
      *
-     *  \return SDL_Texture* of the animation for rendering
+     *  \return SDL_Texture* of the Animation for rendering
      */
     SDL_Texture* getTexture();
 
@@ -168,15 +170,15 @@ namespace graphics {
      *  \brief Get a pointer to the destination rect used for positioning
      *         with the renderer
      *
-     *  \return SDL_Rect* destRect of animation
+     *  \return SDL_Rect* destRect of Animation
      */
     SDL_Rect* getDestRect();
 
     /**
      *  \brief Get a pointer to the source rect used for getting the frame
-     *         of the animation
+     *         of the Animation
      *
-     *  \return SDL_Rect* srcRect of animation
+     *  \return SDL_Rect* srcRect of Animation
      */
     SDL_Rect* getSrcRect();
   };  

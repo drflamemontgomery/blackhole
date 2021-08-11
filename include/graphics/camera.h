@@ -41,7 +41,7 @@ namespace blackhole {
 namespace graphics {
 
   /**
-   *  \brief The class for viewing images
+   *  \brief The class for viewing classes built on ImageBase
    */
   class Camera : public ImageBase {
   private:
@@ -64,15 +64,73 @@ namespace graphics {
     Camera(SDL_Renderer* renderer, int w, int h, float x = 0, float y = 0);
     ~Camera();
 
-  
-    void setX(float x);
-    void setY(float y);
-  
-    void addImage(ImageBase* image);
-    void removeImage(ImageBase* tex);
 
+    /**
+     *  \brief adjusts time for the images when used as an image collator
+     *
+     *  \param time The amount of time passed in the frame
+     */
+    void addTime(float time);
+    
+    /**
+     *  \brief Set the x position of the camera
+     *
+     *  \param x The x position you want the camera to view
+     *
+     *  \sa setY()
+     */
+    void setX(float x);
+
+    /**
+     *  \brief Set the y position of the camera
+     *
+     *  \param y The y position you want the camera to view
+     *
+     *  \sa setX()
+     */
+    void setY(float y);
+
+
+    /**
+     *  \brief Add an image to the camera for collating.
+     *         Use for images only this camera can see
+     *
+     *  \param image pointer to the image for rendering
+     *
+     *  \sa removeImage()
+     */
+    void addImage(ImageBase* image);
+
+    /**
+     *  \brief Remove an image from the camera
+     *
+     *  \param image pointer to the image you want to remove
+     *
+     *  \sa addImage()
+     */
+    void removeImage(ImageBase* image);
+
+
+
+    /**
+     *  \brief Get the size of the camera's viewport
+     *
+     *  \return SDL_Rect* containing the size of the viewport
+     */
     SDL_Rect* getViewport();
+
+    /**
+     *  \brief Get the texture of the cam for copying renderer
+     *
+     *  \return SDL_Texture* to be erased and copied over for the main renderer
+     */
     SDL_Texture* getCamTexture();
+
+    /**
+     *  \brief Get the texture of the camera with its images
+     *
+     *  \return SDL_Texture* to be copied to the main renderer
+     */
     SDL_Texture* getTexture();
   };
 }}
