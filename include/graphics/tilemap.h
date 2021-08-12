@@ -38,21 +38,69 @@
 #include "spritesheet.h"
 
 namespace blackhole {
-namespace graphics {  
-class Tilemap {
- private:
-  Tmx::Map* map;
-  Image** tileLayers;
- public:
-  Tilemap(const char* file, SDL_Renderer* renderer);
-  ~Tilemap();
+namespace graphics {
 
-  Tmx::Map* getMap();
-  Image* getTileLayerImage(int layer);
-  const Tmx::TileLayer* getTileLayer(int layer);
-  const Tmx::ObjectGroup* getObjectGroup(int layer);
+  /**
+   *  \brief A class for loading tmx files as images built on ImageBase
+   */
+  class Tilemap {
+  private:
+    Tmx::Map* map;
+    Image** tileLayers;
+  public:
+    /**
+     *  \brief Constructor of Tilemap
+     *
+     *  \param file The location of tmx file
+     *  \param renderer The renderer of the Window
+     */
+    Tilemap(const char* file, SDL_Renderer* renderer);
+    ~Tilemap();
+
+    /**
+     *  \brief Get the raw data of the tilemap
+     *
+     *  return Tmx::Map containing tilemap data
+     */
+    Tmx::Map* getMap();
+
+    /**
+     *  \brief Get the image made from the tilemap Tile layers
+     *
+     *  \param layer Tile layer to get
+     *
+     *  \return Image* of the Tile layer
+     *
+     *  \sa getTileLayer()
+     *  \sa getObjectGroup()
+     */
+    Image* getTileLayerImage(int layer);
+
+    /**
+     *  \brief Get the raw data of the tilemap Tile layers
+     *
+     *  \param layer Tile layer to get
+     *
+     *  \return Tmx::TileLayer* of the Tile Layer raw data
+     *
+     *  \sa getTileLayerImage()
+     *  \sa getObjectGroup()
+     */
+    const Tmx::TileLayer* getTileLayer(int layer);
+
+    /**
+     *  \brief Get the raw data of the tilemap Object Groups
+     *
+     *  \param layer Object Group to get
+     *
+     *  \return Tmx::ObjectGroup* of the Object Group raw data
+     *
+     *  \sa getTileLayerImage()
+     *  \sa getTileLayer()
+     */
+    const Tmx::ObjectGroup* getObjectGroup(int layer);
   
-};
+  };
 }}
 
 #endif

@@ -50,76 +50,232 @@
 namespace blackhole {
 namespace graphics {
 
-struct floatXY {
-  float x;
-  float y;
-};
+  /**
+   *  \brief A struct for 2d positions
+   */
+  struct floatXY {
+    float x;  /**< x position */
+    float y;  /**< y position */
+  };
+
+
+  /**
+   *  \brief A class for handling rendering, events, and main functions
+   */
+  class Window {
+  private:
+    bool init();
+    void handleEvents();
+  private:
+    SDL_Window* window;
+    SDL_Renderer* renderer;
+    SDL_Texture* preRenderer;
+
+    SDL_Rect renderFrame;
   
-class Window {
- private:
-  bool init();
- private:
-  SDL_Window* window;
-  SDL_Renderer* renderer;
-  SDL_Texture* preRenderer;
+    Color bg_color;
+    int width;
+    int height;
+    const char* title;
 
-  SDL_Rect renderFrame;
+    floatXY scale;
+    int fps;
+
+    float frameTime;
   
-  Color bg_color;
-  int width;
-  int height;
-  const char* title;
-
-  floatXY scale;
-  int fps;
-
-  float frameTime;
+    std::list<CameraHolder> cameraQueue;
+    std::list<ImageHolder> renderQueue;
+    const Uint8* keyboard_state = SDL_GetKeyboardState(NULL);
+    double deltaTime = 0;
   
-  std::list<CameraHolder> cameraQueue;
-  std::list<ImageHolder> renderQueue;
-  const Uint8* keyboard_state = SDL_GetKeyboardState(NULL);
-  double deltaTime = 0;
+    std::thread renderThread;
+    std::thread eventThread;
+    bool running = false;
+    bool closed = false;
+    void (*_main)();
   
-  std::thread renderThread;
-  std::thread eventThread;
-  bool running = false;
-  bool closed = false;
-  void (*_main)();
-  
- public:
-  Window(int width, int height, const char* title, SDL_Rect renderFrame);
-  Window(int width, int height, const char* title, SDL_Rect renderFrame, Color bg);
-  ~Window();
+  public:
 
-  void Render();
+    /**
+     *  \brief Constructor of Window with standard color
+     *
+     *  \param width Width of the Window
+     *  \param height Height of the Window
+     *  \param title Name of the Window
+     *  \param renderFrame Rectangle of Renderable positions
+     */
+    Window(int width, int height, const char* title, SDL_Rect renderFrame);
 
-  void addCamera(Camera* cam);
-  void removeCamera(Camera* cam);
-  void addImage(ImageBase* image);
-  void removeImage(ImageBase* image);
-  
-  int getWidth();
-  int getHeight();
-  
-  SDL_Window* getWindow();
-  SDL_Renderer* getRenderer();
+    /**
+     *  \brief Constructor of Window with custom color
+     *
+     *  \param width Width of the Window
+     *  \param height Height of the Window
+     *  \param title Name of the Window
+     *  \param renderFrame Rectangle of renderable positions
+     *  \param bg Color of the Window background
+     */
+    Window(int width, int height, const char* title, SDL_Rect renderFrame, Color bg);
+    ~Window();
 
-  void setRenderFrame(int width, int height);
 
-  void setScale(floatXY scale);
-  floatXY getScale();
+    /**
+     *  \brief Function for rendering all classes built on ImageBase
+     */
+    void Render();
 
-  void startMainLoop(void (*_main)(), int fps);
-  void handleEvents();
-  bool isClosed();
 
-  float getTimeSinceLastFrame();
-  void setFps(int fps);
+    /**
+     *  \brief Function for adding a Camera to watch
+     *
+     *  \param cam Pointer to the Camera to add
+     *
+     *  \sa removeCamera()
+     */
+    void addCamera(Camera* cam);
 
-  double getDeltaTime();
-  bool keyDown(SDL_Scancode scancode);
-  bool keyUp(SDL_Scancode scancode);
-};
+    /**
+     *  \brief Function for removing a Camera
+     *
+     *  \param cam Pointer to the Camera to remove
+     *
+     *  \sa addCamera()
+     */
+    void removeCamera(Camera* cam);
+
+
+
+    /**
+     *  \brief Function for adding an ImageBase for rendering
+     *
+     *  \param image Pointer to the ImageBase to add
+     *
+     *  \sa removeImage()
+     */
+    void addImage(ImageBase* image);
+
+    /**
+     *  \brief Function for removing an ImageBase
+     *
+     *  \param image Pointer to the ImageBase to remove
+     *
+     *  \sa addImage()
+     */
+    void removeImage(ImageBase* image);
+
+
+
+    /**
+     *  \brief Get the width of the WIndow
+     *
+     *  return width of window eg. 600 px
+     *
+     *  \sa getHeight()
+     */
+    int getWidth();
+
+    /**
+     *  \brief Get the height of the WIndow
+     *
+     *  return height of window eg. 600 px
+     *
+     *  \sa getWidth()
+     */
+    int getHeight();
+
+
+
+    /**
+     *  \brief Get the SDL declaration of the window
+     *
+     *  \return pointer of SDL_Window
+     */
+    SDL_Window* getWindow();
+
+    /**
+     *  \brief Get the SDL declaration of the renderer
+     *
+     *  \return pointer of SDL_Renderer
+     */
+    SDL_Renderer* getRenderer();
+
+
+    /**
+     *  \brief Set the size of the viewport that can be rendered on
+     *
+     *  \param width Width of the viewport
+     *  \param height Height of the viewport
+     */
+    void setRenderFrame(int width, int height);
+
+
+    
+    /**
+     *  \brief Set the zoom scale of the window
+     *
+     *  \param scale {x, y} value of the scale
+     *  \sa getScale()
+     */
+    void setScale(floatXY scale);
+
+    /**
+     *  \brief Get the zoom scale of the window
+     *
+     *  \return floatXY of the scale eg. {2, 2} `2x zoom`
+     *
+     *  \sa setScale()
+     */
+    floatXY getScale();
+
+
+    /**
+     *  \brief Start the window functions
+     *
+     *  \param _main Main function declared by the user
+     *  \param fps Frames Per Second
+     */
+    void startMainLoop(void (*_main)(), int fps);
+
+    /**
+     *  \brief Check if window is closed
+     *
+     *  \return true if closed. false if not closed
+     */
+    bool isClosed();
+
+
+
+    /**
+     *  \brief Get the time since the last frame
+     *
+     *  \return float of time eg. 0.0122f seconds
+     */
+    float getTimeSinceLastFrame();
+
+    /**
+     *  \brief Set fps for the renderer
+     *
+     *  \param fps Frames Per Second
+     */
+    void setFps(int fps);
+
+
+    /**
+     *  \brief Get the time since last main function call
+     *
+     *  \return double of delta time
+     */
+    double getDeltaTime();
+
+    /**
+     *  \brief Check if key X is pressed
+     *
+     *  \param scancode SDL_Scancode of the key
+     *
+     *  \return true if key is pressed
+     */
+    bool keyDown(SDL_Scancode scancode);
+  };
 }}
 
 

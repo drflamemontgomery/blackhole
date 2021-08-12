@@ -37,10 +37,12 @@
 
 namespace blackhole {
 namespace graphics {
-
-struct ImageHolder {
-  ImageBase* image;
-};
+  /**
+   *  \brief Holder for the ImageBase address to prevent pointer corruption
+   */
+  struct ImageHolder {
+    ImageBase* image;  /**< Pointer to the ImageBase */
+  };
 }}
 
 #endif

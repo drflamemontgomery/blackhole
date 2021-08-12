@@ -281,10 +281,6 @@ namespace blackhole::graphics {
   bool Window::keyDown(SDL_Scancode scancode) {
     return keyboard_state[scancode];
   }
-
-  bool Window::keyUp(SDL_Scancode scancode) {
-    return !keyboard_state[scancode];
-  }
   
   bool compare_position(const ImageHolder& first, const ImageHolder& second) {
     return(first.image->getLayer() < second.image->getLayer());
