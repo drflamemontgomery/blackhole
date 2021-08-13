@@ -65,7 +65,6 @@ namespace graphics {
   class Window {
   private:
     bool init();
-    void handleEvents();
   private:
     SDL_Window* window;
     SDL_Renderer* renderer;
@@ -275,6 +274,13 @@ namespace graphics {
      *  \return true if key is pressed
      */
     bool keyDown(SDL_Scancode scancode);
+
+
+
+    /**
+     *  \brief Handle SDL Events. Used in the event thread
+     */
+    void handleEvents();
   };
 }}
 
