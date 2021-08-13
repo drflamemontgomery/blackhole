@@ -8,12 +8,16 @@ OUTLIB=libblackhole.so
 INCLUDEDIR=/usr/local/include/blackhole
 CFLAGS=-lpthread -lSDL2main -lSDL2 -lSDL_mixer -I$(HEADERDIR)
 
-exec : $(OBJDIR) $(LIBDIR) $(INCLUDEDIR)
+default: build build-headers
+
+build : $(OBJDIR) $(LIBDIR) $(INCLUDEDIR)
 	$(CC) -c -Wall -fpic $(SRCS) $(CFLAGS)
 	mv *.o $(OBJDIR)
 	$(CC) -shared -o $(LIBDIR)/$(OUTLIB) $(OBJDIR)/*.o
+	cp $(LIBDIR)/$(OUTLIB) /usr/local/lib
+
+build-headers:
 	cp -r $(HEADERDIR)/* $(INCLUDEDIR)
-	cp -r $(LIBDIR)/$(OUTLIB) /usr/local/lib
 
 $(OBJDIR):
 	mkdir $(OBJDIR)
