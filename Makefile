@@ -33,3 +33,4 @@ clean : $(OBJS)
 		find . -name "*~" -exec rm {} \;
 		find . -name "#*#" -exec rm {} \;
 		find . -name "*.gch" -exec rm {} \;
+		find . -name "*.o" -exec rm {} \;
