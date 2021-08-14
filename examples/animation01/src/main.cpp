@@ -78,9 +78,6 @@ int main(void) {
   return 0;
 }
 
-bool plus_pressed  = false;
-bool minus_pressed = false;
-
 void game_main(void) {
   if(window.keyDown(SDL_SCANCODE_RIGHT)) {
     animation.setX(animation.getX() + 128*window.getDeltaTime());
@@ -96,17 +93,5 @@ void game_main(void) {
 
   if(window.keyDown(SDL_SCANCODE_DOWN)) {
     animation.setY(animation.getY() + 128*window.getDeltaTime());
-  }
-
-
-
-
-  
-  if(window.keyDown(SDL_SCANCODE_EQUALS) && !plus_pressed) {
-    animation.setFrame(animation.getFrame() + 1);
-    plus_pressed = true;
-  }
-  else if(!window.keyDown(SDL_SCANCODE_EQUALS) && plus_pressed) {
-    plus_pressed = false;
   }
 }
