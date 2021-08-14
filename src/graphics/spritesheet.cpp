@@ -42,16 +42,16 @@ namespace blackhole::graphics {
 	this->rows = rows;
 	this->cols = cols;
 
-	SDL_QueryTexture(texture, NULL, NULL, &row_size, &col_size);
+	SDL_QueryTexture(texture, NULL, NULL, &col_size, &row_size);
 	
 	this->row_size /= rows;
 	this->col_size /= cols;
 
 	this->frames = rows*cols;
 
-	this->destRect.w = row_size;
-	this->destRect.h = col_size;
-	this->srcRect = {0, 0, row_size, col_size};
+	this->destRect.w = col_size;
+	this->destRect.h = row_size;
+	this->srcRect = {0, 0, col_size, row_size};
   }
 
   SpriteSheet::~SpriteSheet() {
@@ -61,10 +61,10 @@ namespace blackhole::graphics {
 	frame %= frames;
 	this->frame = frame;
 	this->srcRect = {
-	  frame%rows*row_size,
-	  (int)frame/rows*col_size,
-	  row_size,
-	  col_size
+	  frame%cols*col_size,
+	  (int)frame/cols*row_size,
+	  col_size,
+	  row_size
 	};
   }
 
