@@ -23,18 +23,56 @@
 */
 
 /**
- * \file graphics.h
+ * \file text.cpp
  *
- * A blackhole library header for graphics
+ * A blackhole library class for displaying text
  */
 
-
-#include "graphics/animator_controller.h"
-#include "graphics/animation.h"
-#include "graphics/color.h"
-#include "graphics/image.h"
-#include "graphics/spritesheet.h"
-#include "graphics/window.h"
-#include "graphics/tilemap.h"
 #include "graphics/text.h"
-#include "graphics/camera.h"
+
+namespace blackhole::graphics {
+  Text::Text(const char* file, const char* text, SDL_Renderer* renderer, int size, SDL_Color color, float x, float y) {
+    TTF_Font* font = TTF_OpenFont(file, size);
+
+    if(font == NULL) {
+      fprintf(stderr, "Failed to open font %s\n", file);
+      return;
+    }
+    
+    SDL_Surface* surface = TTF_RenderText_Solid(font, text, color);
+    this->texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+    SDL_FreeSurface(surface);
+    SDL_QueryTexture(this->texture, NULL, NULL, &destRect.w, &destRect.h);
+
+    this->x = x;
+    this->y = y;
+  }
+
+  Text::~Text() {
+    SDL_DestroyTexture(texture);
+  }
+
+  void Text::setX(float x) {
+    this->x = x;
+  }
+
+  void Text::setY(float y) {
+    this->y = y;
+  }
+  
+  float Text::getX() {
+    return x;
+  }
+
+  float Text::getY() {
+    return y;
+  }
+
+
+  SDL_Rect* Text::getDestRect() {
+    destRect.x = round(x);
+    destRect.y = round(y);
+    return &destRect;
+  }
+}

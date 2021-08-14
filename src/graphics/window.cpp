@@ -29,6 +29,7 @@
  */
 
 #include "graphics/window.h"
+#include <SDL2/SDL_ttf.h>
 
 namespace blackhole::graphics {
 
@@ -93,12 +94,14 @@ namespace blackhole::graphics {
       printf("Failed to Initialize Renderer\n");
       return false;
     }
-
+    
     preRenderer = SDL_CreateTexture(renderer,
 				    SDL_PIXELFORMAT_RGBX8888,
 				    SDL_TEXTUREACCESS_TARGET,
 				    renderFrame.w,
 				    renderFrame.h);
+
+    TTF_Init();
     
     return true;
 
