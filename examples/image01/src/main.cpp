@@ -60,4 +60,19 @@ int main(void) {
 
 
 void game_main(void) {
+  if(window.keyDown(SDL_SCANCODE_RIGHT)) {
+    image.setX(image.getX() + 128*window.getDeltaTime());
+  }
+
+  if(window.keyDown(SDL_SCANCODE_LEFT)) {
+    image.setX(image.getX() - 128*window.getDeltaTime());
+  }
+
+  if(window.keyDown(SDL_SCANCODE_UP)) {
+    image.setY(image.getY() - 128*window.getDeltaTime());
+  }
+
+  if(window.keyDown(SDL_SCANCODE_DOWN)) {
+    image.setY(image.getY() + 128*window.getDeltaTime());
+  }
 }
