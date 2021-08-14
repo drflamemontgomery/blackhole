@@ -121,20 +121,20 @@ namespace blackhole::graphics {
       SDL_RenderClear(renderer);
 
       for(auto image = renderQueue.begin(); image != renderQueue.end(); ++image) {
-	SDL_Rect* destRect = image->image->getDestRect();
+	SDL_Rect destRect = *image->image->getDestRect();
 	for(auto cam = cameraQueue.begin(); cam != cameraQueue.end(); ++cam) {
-	  SDL_Rect* viewport = cam->cam->getViewport();
+	  SDL_Rect viewport = *cam->cam->getViewport();
 	  
-	  if((viewport->x < destRect->x || viewport->w > destRect->x) &&
-	     (viewport->y < destRect->y || viewport->h > destRect->y)) {
-	    SDL_RenderCopyEx(renderer, image->image->getTexture(), image->image->getSrcRect(), destRect, 0, NULL, image->image->getRendererFlip());
+	  if((viewport.x < destRect.x || viewport.w > destRect.x) &&
+	     (viewport.y < destRect.y || viewport.h > destRect.y)) {
+	    SDL_RenderCopyEx(renderer, image->image->getTexture(), image->image->getSrcRect(), &destRect, 0, NULL, image->image->getRendererFlip());
 	    break;
 	  }
-	  if((viewport->x < destRect->x + destRect->w  ||
-	     viewport->w > destRect->x + destRect->w ) &&
-	     (viewport->y < destRect->y + destRect->h  ||
-	      viewport->h > destRect->y + destRect->h)) {
-	    SDL_RenderCopyEx(renderer, image->image->getTexture(), image->image->getSrcRect(), destRect, 0, NULL, image->image->getRendererFlip());
+	  else if((viewport.x < destRect.x + destRect.w  ||
+	     viewport.w > destRect.x + destRect.w ) &&
+	     (viewport.y < destRect.y + destRect.h  ||
+	      viewport.h > destRect.y + destRect.h)) {
+	    SDL_RenderCopyEx(renderer, image->image->getTexture(), image->image->getSrcRect(), &destRect, 0, NULL, image->image->getRendererFlip());
 	    break;
 	  }
 	}
@@ -144,6 +144,7 @@ namespace blackhole::graphics {
       for(auto cam = cameraQueue.begin(); cam  != cameraQueue.end(); ++cam) {
 
 	SDL_Rect destRect = *cam->cam->getViewport();
+	SDL_Rect camDestRect = *cam->cam->getDestRect();
 	SDL_QueryTexture(preRenderer, NULL, NULL, &destRect.w, &destRect.h);
 	
 	SDL_SetRenderTarget(renderer, cam->cam->getCamTexture());
@@ -151,7 +152,7 @@ namespace blackhole::graphics {
 	SDL_RenderCopyEx(renderer, preRenderer, NULL, &destRect, 0, NULL, cam->cam->getRendererFlip());
 
 	SDL_SetRenderTarget(renderer, NULL);
-	SDL_RenderCopy(renderer, cam->cam->getCamTexture(), cam->cam->getSrcRect(),cam->cam->getDestRect());
+	SDL_RenderCopy(renderer, cam->cam->getCamTexture(), cam->cam->getSrcRect(), &camDestRect);
       }
       
       SDL_RenderPresent(renderer);
