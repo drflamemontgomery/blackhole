@@ -58,14 +58,14 @@ namespace blackhole::graphics {
   }
 
   void SpriteSheet::setFrame(int frame) {
-	frame %= frames;
-	this->frame = frame;
-	this->srcRect = {
-	  frame%cols*col_size,
-	  (int)frame/cols*row_size,
-	  col_size,
-	  row_size
-	};
+    frame = frame % frames < 0 ? frame + frames : frame % frames;
+    this->frame = frame;
+    this->srcRect = {
+      frame%cols*col_size,
+      (int)frame/cols*row_size,
+      col_size,
+      row_size
+    };
   }
 
   int SpriteSheet::getFrame() {

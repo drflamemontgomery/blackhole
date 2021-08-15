@@ -58,7 +58,8 @@ int main(void) {
 
   // Start main loop running function game_main()
   // 60 frames per second
-  window.startMainLoop(game_main, 60);
+  window.setMainFunction(game_main);
+  window.startMainLoop(60);
   while(!window.isClosed());
   
   return 0;

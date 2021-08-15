@@ -92,6 +92,7 @@ namespace graphics {
     bool running = false;
     bool closed = false;
     void (*_main)();
+    void (*_eventMain)(SDL_Event* event);
   
   public:
 
@@ -230,11 +231,24 @@ namespace graphics {
     /**
      *  \brief Start the window functions
      *
-     *  \param _main Main function declared by the user
      *  \param fps Frames Per Second
      */
-    void startMainLoop(void (*_main)(), int fps);
+    void startMainLoop(int fps);
 
+    /**
+     *  \brief Set the main function
+     *
+     *  \param _main Main function declared by the user
+     */
+    void setMainFunction(void (*_main)());
+
+    /**
+     *  \brief Set the event handler
+     *
+     *  \param _eventMain Event handler function declared by the user
+     */
+    void setEventHandler(void (*_eventMain)(SDL_Event* event));
+    
     /**
      *  \brief Check if window is closed
      *

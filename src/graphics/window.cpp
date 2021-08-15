@@ -239,24 +239,36 @@ namespace blackhole::graphics {
     return scale;
   }
 
-  void Window::startMainLoop(void (*_main)(), int fps) {
+  void Window::startMainLoop(int fps) {
     this->fps = fps;
     this->running = true;
     this->renderThread = std::thread(renderThreadLoop, this);
     this->eventThread = std::thread(eventThreadLoop, this);
-    this->_main = _main;
     time_t timer;
     while(!isClosed()) {
       timer = getTime();
-      this->_main();
+      if(_main != NULL) {
+	this->_main();
+      }
       this->deltaTime = difftime(getTime(), timer)/1000.0;
     }
   }
 
+  void Window::setMainFunction(void (*_main)()) {
+    this->_main = _main;
+  }
+
+  void Window::setEventHandler(void (*_eventMain)(SDL_Event* event)) {
+    this->_eventMain = _eventMain;
+  }
+  
   void Window::handleEvents() {
     while(running) {
       SDL_Event event;
       while(SDL_PollEvent(&event) && running) {
+	if(_eventMain != NULL) {
+	  _eventMain(&event);
+	}
 	switch(event.type) {
 	case SDL_WINDOWEVENT:
 		  
