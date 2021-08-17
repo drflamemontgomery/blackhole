@@ -61,12 +61,13 @@ namespace blackhole::graphics {
 
       const Tmx::TileLayer* layer = map->GetTileLayer(i);
       SDL_Texture* texture = SDL_CreateTexture(renderer,
-					       SDL_PIXELFORMAT_RGBX8888,
+					       SDL_PIXELFORMAT_RGBA8888,
 					       SDL_TEXTUREACCESS_TARGET,
 					       map->GetWidth()*
 					       map->GetTileWidth(),
 					       map->GetHeight()*
 					       map->GetTileHeight());
+      SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
       tileLayers[i] = new Image("/home/looking/c_testing/asdf.png", renderer, layer->GetX(), layer->GetY());
       
 
@@ -77,8 +78,11 @@ namespace blackhole::graphics {
       for(int x = 0; x < layer->GetWidth(); x++) {
 	for(int y = 0; y < layer->GetHeight(); y++) {
 	  int tileset_id = layer->GetTileTilesetIndex(x, y);
+	  if(tileset_id < 0) {
+	    continue;
+	  }
+	  
 	  tilesets[tileset_id]->setFrame(layer->GetTileId(x, y));
-
 	  destrect = {
 	    x*map->GetTileset(tileset_id)->GetTileWidth(),
 	    y*map->GetTileset(tileset_id)->GetTileHeight(),
