@@ -36,7 +36,7 @@ namespace blackhole::graphics {
   bool compare_position(const ImageHolder& first, const ImageHolder& second);
   bool cam_sort(const CameraHolder& first, const CameraHolder& second);
   void renderThreadLoop(Window* window);
-  void eventThreadLoop(Window* window);
+  //void eventThreadLoop(Window* window);
 
   time_t getTime();
   
@@ -65,7 +65,7 @@ namespace blackhole::graphics {
   Window::~Window() {
     this->running = false;
     this->renderThread.join();
-    this->eventThread.join();
+    //this->eventThread.join();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -159,6 +159,8 @@ namespace blackhole::graphics {
       }
       
       SDL_RenderPresent(renderer);
+
+      handleEvents(difftime(getTime(), time)/1000.0f);
       
       while(difftime(getTime(), time) < 1000.0/fps) {
 	SDL_Delay(1);
@@ -218,8 +220,8 @@ namespace blackhole::graphics {
 
   
   void Window::setRenderFrame(int width, int height) {
-    this->renderFrame.w = width;
-    this->renderFrame.h = height;
+    this->renderFrame.w = this->width > width ? this->width : width;
+    this->renderFrame.h = this->height > height ? this->height : height;
 
     SDL_DestroyTexture(preRenderer);
     preRenderer = SDL_CreateTexture(renderer,
@@ -243,7 +245,7 @@ namespace blackhole::graphics {
     this->fps = fps;
     this->running = true;
     this->renderThread = std::thread(renderThreadLoop, this);
-    this->eventThread = std::thread(eventThreadLoop, this);
+    //this->eventThread = std::thread(eventThreadLoop, this);
     time_t timer;
     while(!isClosed()) {
       timer = getTime();
@@ -258,16 +260,16 @@ namespace blackhole::graphics {
     this->_main = _main;
   }
 
-  void Window::setEventHandler(void (*_eventMain)(SDL_Event* event)) {
+  void Window::setEventHandler(void (*_eventMain)(SDL_Event* event, float deltaTime)) {
     this->_eventMain = _eventMain;
   }
   
-  void Window::handleEvents() {
-    while(running) {
+  void Window::handleEvents(float deltaTime) {
+    //while(running) {
       SDL_Event event;
       while(SDL_PollEvent(&event) && running) {
 	if(_eventMain != NULL) {
-	  _eventMain(&event);
+	  _eventMain(&event, deltaTime);
 	}
 	switch(event.type) {
 	case SDL_WINDOWEVENT:
@@ -281,7 +283,7 @@ namespace blackhole::graphics {
 	  break;
 	}
       }
-    }
+      //}
   }
 
 
@@ -310,9 +312,9 @@ namespace blackhole::graphics {
     window->Render();
   }
 
-  void eventThreadLoop(Window* window) {
-    window->handleEvents();
-  }
+  // void eventThreadLoop(Window* window) {
+  //   window->handleEvents();
+  // }
 
 
   time_t getTime() {

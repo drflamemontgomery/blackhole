@@ -88,11 +88,11 @@ namespace graphics {
     double deltaTime = 0;
   
     std::thread renderThread;
-    std::thread eventThread;
+    //std::thread eventThread;
     bool running = false;
     bool closed = false;
     void (*_main)();
-    void (*_eventMain)(SDL_Event* event);
+    void (*_eventMain)(SDL_Event* event, float deltaTime);
   
   public:
 
@@ -247,7 +247,7 @@ namespace graphics {
      *
      *  \param _eventMain Event handler function declared by the user
      */
-    void setEventHandler(void (*_eventMain)(SDL_Event* event));
+    void setEventHandler(void (*_eventMain)(SDL_Event* event, float deltaTime));
     
     /**
      *  \brief Check if window is closed
@@ -293,8 +293,10 @@ namespace graphics {
 
     /**
      *  \brief Handle SDL Events. Used in the event thread
+     *
+     *  \param deltaTime time passed in the frame
      */
-    void handleEvents();
+    void handleEvents(float deltaTime);
   };
 }}
 
